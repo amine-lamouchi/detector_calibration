@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jf_twin"
+version = "0.1.0"
+description = "Simulated MFX attenuator + sample + JUNGFRAU for developing gain-switching offset calibrations"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+# Same ophyd/pcdsdevices versions as tfs_alignment (tested with Python 3.11).
+dependencies = [
+    # attenuator layer: the real pcdsdevices Attenuator with faked PVs
+    "ophyd~=1.11",
+    "pcdsdevices~=11.1",
+    # X-ray absorption (attenuator blades, sensor efficiency)
+    "xraydb~=4.5",
+    "numpy>=1.24,<3",
+    "scipy>=1.10,<2",
+    "matplotlib>=3.7,<4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "jupyterlab"]
+# scripts/movie.py: 3D view with xrt (pinned exactly: scripts/beamline3d.py patches xrtGlow internals), MP4 output
+movie = ["xrt==1.6.2", "PyQt5~=5.15", "PyOpenGL~=3.1", "imageio-ffmpeg"]
+
+[tool.setuptools]
+# jf_twin: the simulator. protocols: calibration procedures (student work).
+packages = ["jf_twin", "protocols"]
+package-dir = {"jf_twin" = "src/jf_twin", "protocols" = "protocols"}
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
