@@ -145,3 +145,23 @@ notebooks/01_quickstart.ipynb`). It shows how to move the attenuator, take data,
 back, and write and score an offset method. Then you can write your own method in
 `protocols/my_method.py` and compare it with min/max using `python scripts/compare.py`. It
 scores every method in `protocols` against the simulator's true offsets.
+
+## Sources
+
+**MFX controls.** `jf_twin.mfx_sim.attenuator_scan` copies MFX's `attenuator_scan` from
+[pcdshub/mfx](https://github.com/pcdshub/mfx) (`mfx/attenuator_scan.py`). The transmissions
+we scan (`3·10⁻⁴` to `1`, 25 steps) are our choice.
+
+The attenuator is the `Attenuator` class from
+[pcdsdevices](https://github.com/pcdshub/pcdsdevices). The blade materials and thicknesses
+are runtime PVs. We assume the Si blades the same IOC uses at XPP, XCS and MEC (20 µm
+doubling to 10240 µm).
+
+**Gain-switching offsets.** [Sikorski et al. 2023](https://doi.org/10.3389/fphy.2023.1303247)
+report that forced-switch pedestals underestimate the G1 and G2 pedestals after a dynamic
+switch. The min/max method and the ~10 keV G1 offset come from
+[NoGainNoPain](https://github.com/lcls-mlcv/NoGainNoPain) (Philip Hart, Chris O'Grady), run on
+the attenuation scans of `mfx100848724` (runs 169, 170).
+
+**Simulation.** Attenuation and absorption come from [xraydb](https://xraypy.github.io/XrayDB/).
+[xrt](https://xrt.readthedocs.io) only draws the 3D view in `scripts/movie.py`.

@@ -17,7 +17,7 @@ The thing to calibrate: after a *dynamic* switch the G1/G2 pedestal is not
 the one measured in the dark with forced switching (forceswitchg1/g2), which
 is what the pedestal runs give. Corrected with those pedestals, G1 and G2
 read too low or too high, and the energy jumps at the switching points
-(Sikorski et al. 2023, Ramilli et al. 2022). `switch_offset_keV` sets how far
+(Sikorski et al. 2023). `switch_offset_keV` sets how far
 off they read, per pixel, with structure per ASIC.
 
 Charge sharing is crude: a fraction of the photons leave a uniform random
